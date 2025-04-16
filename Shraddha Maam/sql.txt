@@ -1,0 +1,114 @@
+CREATE DATABASE college;
+USE college;
+
+CREATE TABLE student (
+	rollno INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+INSERT INTO student
+(rollno, name)
+VALUES
+(1,"Sourav"),
+(2,"Akanksha"),
+(3,"Ayush");
+
+INSERT STUDENT VALUES (104,"Anshu");
+UPDATE STUDENT SET rollno = 4 WHERE rollno = 104;
+
+SELECT * FROM student;
+
+USE college;
+
+-- Create `emp` first to avoid foreign key issues
+CREATE TABLE emp (
+    id INT PRIMARY KEY,
+    -- Here, salary is default constraint
+    salary INT DEFAULT 25000
+);
+
+-- Create `company` after `emp`
+CREATE TABLE company (
+    emp_id INT,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(30),
+    FOREIGN KEY (emp_id) REFERENCES emp(id)
+);
+
+-- Insert values into `emp`
+INSERT INTO emp (id) VALUES (1),(2),(3),(4),(5);
+
+-- Insert values into `company` with emp_id references
+INSERT INTO company (emp_id, name, age, city) VALUES
+(1, "Sourav", 18, "Godda"),
+(2, "Akanksha", 18, "Gaya"),
+(3, "Ayush", 18, "Patna"),
+(4, "Anshu", 18, "Lohardaga");
+
+SELECT * FROM emp;
+SELECT * FROM company;
+
+-- This will delete Sourav details even details aree in company table bcz ids are linked from emp table
+DELETE FROM emp WHERE id = 1;
+
+-- Below Line will give error bcz there is no 999 id present in employee table
+INSERT INTO company (emp_id, name, age, city) VALUES (999, "Fake", 22, "Unknown");
+
+
+
+
+
+
+
+
+
+practice problems
+
+-- Problem 1
+
+CREATE DATABASE company_xyz;
+USE company_xyz;
+
+CREATE TABLE emp (
+	id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary float
+);
+
+INSERT INTO emp (id, name, salary) VALUES
+(1, "Adam", 25000),
+(2, "Bob", 30000),
+(3, "Casey", 40000);
+
+SELECT * FROM emp;
+
+-- Problem 2
+
+CREATE DATABASE college_2;
+USE college_2;
+
+CREATE TABLE student (
+	rollno INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT NOT NULL,
+    grade VARCHAR(1),
+    city VARCHAR(20)
+);
+
+INSERT INTO student (rollno, name, marks, grade, city) VALUES 
+(101, "Anil", 78, "C", "Pune"),
+(102, "Bhumika", 93, "A", "Mumbai"),
+(103, "Chetan", 85, "B", "Mumbai"),
+(104, "Dhruv", 96, "A", "Delhi"),
+(105, "Emanuel", 12, "F", "Delhi"),
+(106, "Farah", 82, "B", "Delhi");
+
+SELECT * FROM student;
+
+SELECT DISTINCT city FROM student;
+
+SELECT * FROM student WHERE (marks > 80);
+SELECT * FROM student WHERE (marks > 80 && city = "Mumbai");
+SELECT * FROM student ORDER BY marks DESC;
+SELECT * FROM student ORDER BY city ASC;
